@@ -9,6 +9,8 @@ typedef struct no{
 
 no* inserir(no* r, int valor);
 void preOrdem(no* r);
+void inOrdem(no* r);
+void posOrdem(no* r);
 
 #endif
 

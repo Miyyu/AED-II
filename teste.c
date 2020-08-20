@@ -19,6 +19,17 @@ int main(int argc, char* argv[]){
             
             case 2:
                 preOrdem(raiz);
+                printf("\n");
+                break;
+
+            case 3:
+                inOrdem(raiz);
+                printf("\n");
+                break;
+
+            case 4:
+                posOrdem(raiz);
+                printf("\n");
                 break;
             
             case 99:

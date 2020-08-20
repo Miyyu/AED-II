@@ -11,7 +11,7 @@ no* inserir(no* r, int valor){
         return novo;
     }
     
-    if(valor > r->valor){
+    if(valor < r->valor){
         r->esq = inserir(r->esq, valor);
     }
     else{
@@ -26,6 +26,23 @@ void preOrdem(no* r){
         printf("[%d]", r->valor);
         preOrdem(r->esq);
         preOrdem(r->dir);
+    }
+    
+}
+
+void inOrdem(no* r){
+    if(r != NULL){
+        inOrdem(r->esq);
+        printf("[%d]", r->valor);
+        inOrdem(r->dir);
+    }
+}
+
+void posOrdem(no* r){
+    if(r != NULL){
+        posOrdem(r->esq);
+        posOrdem(r->dir);
+        printf("[%d]", r->valor);
     }
 }
 
