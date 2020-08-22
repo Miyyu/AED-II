@@ -18,18 +18,18 @@ int main(int argc, char* argv[]){
                 break;
             
             case 2:
-                preOrdem(raiz);
-                printf("\n");
+                preorder(raiz);
+                printf("\n"); //Apagar depois
                 break;
 
             case 3:
-                inOrdem(raiz);
-                printf("\n");
+                inorder(raiz);
+                printf("\n"); //Apagar depois
                 break;
 
             case 4:
-                posOrdem(raiz);
-                printf("\n");
+                posorder(raiz);
+                printf("\n"); //Apagar depois
                 break;
             
             case 99:
