@@ -85,4 +85,21 @@ int quantidade_elementos(no* raiz){
     }
 }
 
+int existe(no* raiz, int valor){
+    if(raiz != NULL){
+        if(valor == raiz->valor){
+            return 1;
+        }
+        if(valor < raiz->valor && raiz->esq != NULL){
+            existe(raiz->esq, valor);
+        }
+        else if(valor > raiz->valor && raiz->dir != NULL){
+            existe(raiz->dir, valor);
+        }
+        else{
+            return 0;
+        }        
+    }
+}
+
 

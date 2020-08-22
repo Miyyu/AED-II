@@ -44,9 +44,10 @@ int main(int argc, char* argv[]){
                 printf("QUANT[%d]", quantidade_elementos(raiz)); //OLHAR DEPOIS
                 break;
             case 10:
-
+                scanf("%d", &valor);
+                printf("Existe: %d ", existe(raiz, valor));  //OLHAR DEPOIS
                 break;
-                
+
             case 99:
                 exit(0);
         }

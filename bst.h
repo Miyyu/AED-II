@@ -24,9 +24,9 @@ int menor(no* raiz); //OK
 //Op 8
 int altura(no* raiz);
 //Op 9
-int quantidade_elementos(no* raiz);
+int quantidade_elementos(no* raiz); // OK
 //Op 10
-int existe(no* raiz, int valor); //Retornar 1(existe) ou 0(não existe)
+int existe(no* raiz, int valor); //Retornar 1(existe) ou 0(não existe) okkkkkkkkk
 //Op 11
 no* predecessor(no* raiz);
 //Op 12
