@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+int quant; //VARIÁVEL GLOBAL
+
 no* inserir(no* raiz, int valor){
-    if(r == NULL){
+    if(raiz == NULL){
         no* novo = (no*) malloc(sizeof(no));
         novo->dir = NULL;
         novo->esq = NULL;
@@ -26,32 +28,61 @@ no* inserir(no* raiz, int valor){
 void preorder(no* raiz){
     if(raiz != NULL){
         printf("[%d]", raiz->valor);
-        preOrdem(raiz->esq);
-        preOrdem(raiz->dir);
+        preorder(raiz->esq);
+        preorder(raiz->dir);
     }
     
 }
 
 void inorder(no* raiz){
     if(raiz != NULL){
-        inOrdem(raiz->esq);
+        inorder(raiz->esq);
         printf("[%d]", raiz->valor);
-        inOrdem(raiz->dir);
+        inorder(raiz->dir);
     }
 }
 
 void posorder(no* raiz){
     if(raiz != NULL){
-        posOrdem(raiz->esq);
-        posOrdem(raiz->dir);
+        posorder(raiz->esq);
+        posorder(raiz->dir);
         printf("[%d]", raiz->valor);
     }
 }
 
-//--------------------------------------------------------------------
+//-----------------------(<) & (>)---------------------------------------------
 
-no* menor{
-    
+int maior(no* raiz){  //OLHAR
+    if(raiz != NULL){
+        if(raiz->dir != NULL){
+            maior(raiz->dir);
+        }
+        else{
+            return raiz->valor;
+        }
+    }
+}
+
+int menor(no* raiz){  //OLHAR
+    if(raiz != NULL){
+        if(raiz->esq != NULL){
+            menor(raiz->esq);
+        }
+        else{
+            return raiz->valor;
+        }    
+    }
+}
+
+int quantidade_elementos(no* raiz){
+    if(raiz != NULL){
+        quantidade_elementos(raiz->esq);
+        quantidade_elementos(raiz->dir);
+        quant += 1;
+    }
+    else{
+        return quant;
+    }
 }
 
 

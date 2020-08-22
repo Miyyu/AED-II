@@ -31,7 +31,22 @@ int main(int argc, char* argv[]){
                 posorder(raiz);
                 printf("\n"); //Apagar depois
                 break;
+
+            case 6:
+                printf("MAIOR[%d]", maior(raiz)); //OLHAR DEPOIS
+                break;
+
+            case 7:
+                printf("MENOR[%d]", menor(raiz)); //OLHAR DEPOIS
+                break;
             
+            case 9:
+                printf("QUANT[%d]", quantidade_elementos(raiz)); //OLHAR DEPOIS
+                break;
+            case 10:
+
+                break;
+                
             case 99:
                 exit(0);
         }
