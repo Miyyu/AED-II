@@ -68,19 +68,19 @@ int main(int argc, char* argv[]){
 
             case 10:
                 scanf("%d", &valor);
-                printf("Existe: %d ", existe_elemento(raiz, valor));  //OLHAR DEPOIS
+                printf("Existe: [%d] ", existe_elemento(raiz, valor));  //OLHAR DEPOIS
                 break;
 
             case 11:
                 scanf("%d", &valor);
-                x = predecessor(raiz, valor);
+                x = predecessor(raiz, valor); //RETORNAR NADA QUANDO NÃO EXISTE
                 printf("PRE[%d]", x->valor);
                 break;
 
             case 12:
                 scanf("%d", &valor);
                 y = sucessor(raiz, valor);
-                printf("SUCES[%d]", y->valor);
+                printf("SUCES[%d]", y->valor); //RETORNAR NADA QUANDO NÃO EXISTE
                 break;
 
             case 99:
