@@ -70,55 +70,73 @@ no* remover(no* raiz, int valor){
         no* aux = raiz;
         no* ant = NULL;
 
-        /*if(quantidade_elementos(aux) == 1){
-            return free(aux);
-        }*/
-
         while(aux != NULL){
             if(valor == aux->valor){
                 //caso 1: remover a folha
                 if(aux->dir == NULL && aux->esq == NULL){
-                    if(ant->valor > aux->valor){
-                        free(aux);
-                        ant->esq = NULL;
+                    if(ant != NULL){
+                        if(ant->valor > aux->valor){
+                            free(aux);
+                            ant->esq = NULL;
+                        }
+                        else{
+                            free(aux);
+                            ant->dir = NULL;
+                        }
+                        return raiz;
                     }
                     else{
                         free(aux);
-                        ant->dir = NULL;
-                    }
-                                                           
+                        return NULL;
+                    }                                   
                 }
 
                 //caso 3: possui dois filho
                 else if(aux->dir != NULL && aux->esq != NULL){
-                    
+                    no* menorValor = menor(aux->dir);
+                    aux->valor = menorValor->valor;
+                    aux->dir = remover(aux->dir, menorValor->valor);
+                    return raiz;
                 }
 
                 //caso 2: possui um filho
                 else{
-                    if(valor < ant->valor){
-                        if(aux->dir != NULL){
-                            free(aux);
-                            ant->esq = aux->dir;
+                    if(ant != NULL){
+                        if(valor < ant->valor){
+                            if(aux->dir != NULL){
+                                free(aux);
+                                ant->esq = aux->dir;
+                                
+                            }
+                            else{
+                                free(aux);
+                                ant->esq = aux->esq;                            
+                            }
                         }
                         else{
-                            free(aux);
-                            ant->esq = aux->esq;
+                            if(aux->dir != NULL){
+                                free(aux);
+                                ant->dir = aux->dir;                            
+                            }
+                            else{
+                                free(aux);
+                                ant->dir = aux->esq;                            
+                            }
                         }
+                        return raiz;
                     }
                     else{
                         if(aux->dir != NULL){
-                            free(aux);
-                            ant->dir = aux->dir;
+                            raiz = aux->dir;
+                            free(aux);                            
                         }
                         else{
+                            raiz = aux->esq;
                             free(aux);
-                            ant->dir = aux->esq;
                         }
+                        return raiz;
                     }
                 }
-                 return raiz;
-
             }
             else{
                 if(valor > aux->valor){
