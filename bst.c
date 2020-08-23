@@ -52,6 +52,30 @@ void posorder(no* raiz){
 
 //-----------------------(<) & (>)---------------------------------------------
 
+/*no* maior(no* raiz){
+    if(raiz != NULL){
+        no* aux = raiz;
+        if(aux->dir != NULL){
+            maior(aux->dir);
+        }
+        else{
+            return aux;
+        }
+    }
+}
+
+no* menor(no* raiz){  //OLHAR
+    if(raiz != NULL){
+        no* aux = raiz;
+        if(aux->esq != NULL){
+            menor(aux->esq);
+        }
+        else{
+            return aux;
+        }    
+    }
+}*/
+
 int maior(no* raiz){  //OLHAR
     if(raiz != NULL){
         if(raiz->dir != NULL){
@@ -74,6 +98,28 @@ int menor(no* raiz){  //OLHAR
     }
 }
 
+//--------------------------ALTURA-------------------------------------
+
+int altura(no* raiz){
+    if(raiz != NULL){
+        int dir, esq;
+        esq = altura(raiz->esq);
+        dir = altura(raiz->dir);
+
+        if(dir > esq){
+            return dir + 1;
+        }
+        else{
+            return esq + 1;
+        }
+    }
+    else{
+        return 0;
+    }
+}
+
+//---------------------------QUANTIDADE---------------------------------
+
 int quantidade_elementos(no* raiz){
     if(raiz != NULL){
         quantidade_elementos(raiz->esq);
@@ -85,16 +131,18 @@ int quantidade_elementos(no* raiz){
     }
 }
 
-int existe(no* raiz, int valor){
+//-------------------------------EXISTE-----------------------------------
+
+int existe_elemento(no* raiz, int valor){
     if(raiz != NULL){
         if(valor == raiz->valor){
             return 1;
         }
         if(valor < raiz->valor && raiz->esq != NULL){
-            existe(raiz->esq, valor);
+            existe_elemento(raiz->esq, valor);
         }
         else if(valor > raiz->valor && raiz->dir != NULL){
-            existe(raiz->dir, valor);
+            existe_elemento(raiz->dir, valor);
         }
         else{
             return 0;
@@ -102,4 +150,8 @@ int existe(no* raiz, int valor){
     }
 }
 
-
+int predecessor(no* raiz){
+    if(raiz != NULL){
+        
+    }
+}

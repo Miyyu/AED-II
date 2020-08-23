@@ -18,19 +18,19 @@ void posorder(no* raiz); //OK
 //Op 5
 no* remover(no* raiz, int valor);
 //Op 6
-int maior(no* raiz); //OK
+no* maior(no* raiz); //OK
 //Op 7
-int menor(no* raiz); //OK
+no* menor(no* raiz); //OK
 //Op 8
 int altura(no* raiz);
 //Op 9
 int quantidade_elementos(no* raiz); // OK
 //Op 10
-int existe(no* raiz, int valor); //Retornar 1(existe) ou 0(não existe) okkkkkkkkk
+int existe_elemento(no* raiz, int valor); //Retornar 1(existe) ou 0(não existe) okkkkkkkkk
 //Op 11
-no* predecessor(no* raiz);
+int predecessor(no* raiz); //fazer com NO*
 //Op 12
-no* sucessor(no* raiz);
+int sucessor(no* raiz); //fazer com NO*
 
 #endif
 

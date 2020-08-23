@@ -5,6 +5,9 @@
 int main(int argc, char* argv[]){
     no* raiz;
     raiz = NULL;
+    //no* x;
+    //no* y;
+
 
     while(1 == 1){
         int opcao;
@@ -33,20 +36,38 @@ int main(int argc, char* argv[]){
                 break;
 
             case 6:
-                printf("MAIOR[%d]", maior(raiz)); //OLHAR DEPOIS
+                printf("MAIOR[%d]", maior(raiz));
+                break;
+            
+            case 7:
+                printf("MENOR[%d]", menor(raiz));
+                break;
+
+            /*case 6:
+                x = maior(raiz);
+                printf("MAIOR[%d]", x->valor) ;//OLHAR DEPOIS
                 break;
 
             case 7:
-                printf("MENOR[%d]", menor(raiz)); //OLHAR DEPOIS
-                break;
+                y = menor(raiz);
+                printf("MENOR[%d]", y->valor); //OLHAR DEPOIS
+                break;*/
             
+            case 8:
+                printf("Altura: [%d]", altura(raiz));
+                break;
+
             case 9:
                 printf("QUANT[%d]", quantidade_elementos(raiz)); //OLHAR DEPOIS
                 break;
+
             case 10:
                 scanf("%d", &valor);
-                printf("Existe: %d ", existe(raiz, valor));  //OLHAR DEPOIS
+                printf("Existe: %d ", existe_elemento(raiz, valor));  //OLHAR DEPOIS
                 break;
+
+            case 11:
+
 
             case 99:
                 exit(0);
