@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int quant; //VARIÁVEL GLOBAL
+int quant, i; //VARIÁVEL GLOBAL
 
 no* inserir(no* raiz, int valor){
     if(raiz == NULL){
@@ -50,9 +50,94 @@ void posorder(no* raiz){
     }
 }
 
+
+// -------------------------REMOVER-------------------------------------------
+
+/*no* remover(no* raiz, int valor){
+    if(raiz != NULL){
+
+        if(valor == raiz->valor){
+
+        }
+        else{
+            if(valor >)
+        }
+    }
+}*/
+
+no* remover(no* raiz, int valor){
+    if(raiz != NULL){
+        no* aux = raiz;
+        no* ant = NULL;
+
+        /*if(quantidade_elementos(aux) == 1){
+            return free(aux);
+        }*/
+
+        while(aux != NULL){
+            if(valor == aux->valor){
+                //caso 1: remover a folha
+                if(aux->dir == NULL && aux->esq == NULL){
+                    if(ant->valor > aux->valor){
+                        free(aux);
+                        ant->esq = NULL;
+                    }
+                    else{
+                        free(aux);
+                        ant->dir = NULL;
+                    }
+                                                           
+                }
+
+                //caso 3: possui dois filho
+                else if(aux->dir != NULL && aux->esq != NULL){
+                    
+                }
+
+                //caso 2: possui um filho
+                else{
+                    if(valor < ant->valor){
+                        if(aux->dir != NULL){
+                            free(aux);
+                            ant->esq = aux->dir;
+                        }
+                        else{
+                            free(aux);
+                            ant->esq = aux->esq;
+                        }
+                    }
+                    else{
+                        if(aux->dir != NULL){
+                            free(aux);
+                            ant->dir = aux->dir;
+                        }
+                        else{
+                            free(aux);
+                            ant->dir = aux->esq;
+                        }
+                    }
+                }
+                 return raiz;
+
+            }
+            else{
+                if(valor > aux->valor){
+                    ant = aux;
+                    aux = aux->dir;                    
+                }
+                else{
+                    ant = aux;
+                    aux = aux->esq;
+                }
+            }
+        }
+        
+    }
+
+}
 //-----------------------(<) & (>)---------------------------------------------
 
-/*no* maior(no* raiz){
+no* maior(no* raiz){
     if(raiz != NULL){
         no* aux = raiz;
         if(aux->dir != NULL){
@@ -74,9 +159,9 @@ no* menor(no* raiz){  //OLHAR
             return aux;
         }    
     }
-}*/
+}
 
-int maior(no* raiz){  //OLHAR
+/*int maior(no* raiz){  //OLHAR
     if(raiz != NULL){
         if(raiz->dir != NULL){
             maior(raiz->dir);
@@ -96,7 +181,7 @@ int menor(no* raiz){  //OLHAR
             return raiz->valor;
         }    
     }
-}
+}*/
 
 //--------------------------ALTURA-------------------------------------
 
@@ -150,8 +235,99 @@ int existe_elemento(no* raiz, int valor){
     }
 }
 
-int predecessor(no* raiz){
+no* predecessor(no* raiz, int valor){
     if(raiz != NULL){
-        
+        no* aux = raiz;
+        no* i = NULL;
+
+        while(aux != NULL){
+            if(valor == aux->valor){
+                if(aux->esq != NULL){
+                    return maior(aux->esq);
+                }
+                else{
+                    if(i != NULL){
+                        return i;
+                    }
+                }
+            }
+            if(valor > aux->valor){
+                i = aux;
+                aux = aux->dir;
+            }
+            else{
+                aux = aux->esq;
+            }
+        }
+
     }
 }
+
+no* sucessor(no* raiz, int valor){
+    if(raiz != NULL){
+        no* aux = raiz;
+        no* i = NULL;
+
+        while(aux != NULL){
+            if(valor == aux->valor){
+                if(aux->dir != NULL){
+                    return menor(aux->dir);
+                }
+                else{
+                    if(i != NULL){
+                        return i;
+                    }
+                }
+            }
+            if(valor > aux->valor){
+                aux = aux->dir;
+            }
+            else{
+                i = aux;
+                aux = aux->esq;
+            }
+        }        
+    }
+}
+
+/*int predecessor(no* raiz, int valor){
+    printf("%d\n", i);
+   if(raiz != NULL){
+        if(valor == raiz->valor){
+           if(raiz->esq != NULL){
+               return maior(raiz->esq);
+           }
+           else{
+               return i;
+           }
+        }
+        if(valor < raiz->valor){
+            predecessor(raiz->esq, valor);
+        }
+        else{
+            i = raiz->valor;
+            predecessor(raiz->dir, valor);
+        }      
+   }
+}
+
+int sucessor(no* raiz, int valor){
+    if(raiz != NULL){
+        if(valor == raiz->valor){
+            if(raiz->dir != NULL){
+                return menor(raiz->dir);
+            }
+            else{
+                return i;
+            }
+        }
+
+        if(valor < raiz->valor){
+            i = raiz->valor;
+            sucessor(raiz->esq, valor);
+        }
+        else{
+            sucessor(raiz->dir, valor);
+        }
+    }
+}*/

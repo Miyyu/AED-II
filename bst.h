@@ -22,15 +22,15 @@ no* maior(no* raiz); //OK
 //Op 7
 no* menor(no* raiz); //OK
 //Op 8
-int altura(no* raiz);
+int altura(no* raiz); //OK
 //Op 9
 int quantidade_elementos(no* raiz); // OK
 //Op 10
 int existe_elemento(no* raiz, int valor); //Retornar 1(existe) ou 0(não existe) okkkkkkkkk
 //Op 11
-int predecessor(no* raiz); //fazer com NO*
+no* predecessor(no* raiz, int valor); //fazer com NO* OK
 //Op 12
-int sucessor(no* raiz); //fazer com NO*
+no* sucessor(no* raiz, int valor); //fazer com NO* OK
 
 #endif
 
