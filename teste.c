@@ -22,17 +22,14 @@ int main(int argc, char* argv[]){
             
             case 2:
                 preorder(raiz);
-                printf("\n"); //Apagar depois
                 break;
 
             case 3:
                 inorder(raiz);
-                printf("\n"); //Apagar depois
                 break;
 
             case 4:
                 posorder(raiz);
-                printf("\n"); //Apagar depois
                 break;
 
             case 5:
@@ -40,47 +37,39 @@ int main(int argc, char* argv[]){
                 raiz = remover(raiz, valor);
                 break;
 
-            /*case 6:
-                printf("MAIOR[%d]", maior(raiz));
-                break;
-            
-            case 7:
-                printf("MENOR[%d]", menor(raiz));
-                break;*/
-
             case 6:
                 x = maior(raiz);
-                printf("MAIOR[%d]", x->valor) ;//OLHAR DEPOIS
+                printf("[%d]", x->valor);
                 break;
 
             case 7:
                 y = menor(raiz);
-                printf("MENOR[%d]", y->valor); //OLHAR DEPOIS
+                printf("[%d]", y->valor);
                 break;
             
             case 8:
-                printf("Altura: [%d]", altura(raiz));
+                printf("[%d]", altura(raiz));
                 break;
 
             case 9:
-                printf("QUANT[%d]", quantidade_elementos(raiz)); //OLHAR DEPOIS
+                printf("[%d]", quantidade_elementos(raiz)); 
                 break;
 
             case 10:
                 scanf("%d", &valor);
-                printf("Existe: [%d] ", existe_elemento(raiz, valor));  //OLHAR DEPOIS
+                printf("[%d]", existe_elemento(raiz, valor));  
                 break;
 
             case 11:
                 scanf("%d", &valor);
-                x = predecessor(raiz, valor); //RETORNAR NADA QUANDO NÃO EXISTE
-                printf("PRE[%d]", x->valor);
+                x = predecessor(raiz, valor);
+                printf("[%d]", x->valor);
                 break;
 
             case 12:
                 scanf("%d", &valor);
                 y = sucessor(raiz, valor);
-                printf("SUCES[%d]", y->valor); //RETORNAR NADA QUANDO NÃO EXISTE
+                printf("[%d]", y->valor);
                 break;
 
             case 99:

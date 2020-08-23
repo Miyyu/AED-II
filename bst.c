@@ -53,18 +53,6 @@ void posorder(no* raiz){
 
 // -------------------------REMOVER-------------------------------------------
 
-/*no* remover(no* raiz, int valor){
-    if(raiz != NULL){
-
-        if(valor == raiz->valor){
-
-        }
-        else{
-            if(valor >)
-        }
-    }
-}*/
-
 no* remover(no* raiz, int valor){
     if(raiz != NULL){
         no* aux = raiz;
@@ -187,28 +175,6 @@ no* menor(no* raiz){  //OLHAR
     }
 }
 
-/*int maior(no* raiz){  //OLHAR
-    if(raiz != NULL){
-        if(raiz->dir != NULL){
-            maior(raiz->dir);
-        }
-        else{
-            return raiz->valor;
-        }
-    }
-}
-
-int menor(no* raiz){  //OLHAR
-    if(raiz != NULL){
-        if(raiz->esq != NULL){
-            menor(raiz->esq);
-        }
-        else{
-            return raiz->valor;
-        }    
-    }
-}*/
-
 //--------------------------ALTURA-------------------------------------
 
 int altura(no* raiz){
@@ -315,45 +281,3 @@ no* sucessor(no* raiz, int valor){
         }        
     }
 }
-
-/*int predecessor(no* raiz, int valor){
-    printf("%d\n", i);
-   if(raiz != NULL){
-        if(valor == raiz->valor){
-           if(raiz->esq != NULL){
-               return maior(raiz->esq);
-           }
-           else{
-               return i;
-           }
-        }
-        if(valor < raiz->valor){
-            predecessor(raiz->esq, valor);
-        }
-        else{
-            i = raiz->valor;
-            predecessor(raiz->dir, valor);
-        }      
-   }
-}
-
-int sucessor(no* raiz, int valor){
-    if(raiz != NULL){
-        if(valor == raiz->valor){
-            if(raiz->dir != NULL){
-                return menor(raiz->dir);
-            }
-            else{
-                return i;
-            }
-        }
-
-        if(valor < raiz->valor){
-            i = raiz->valor;
-            sucessor(raiz->esq, valor);
-        }
-        else{
-            sucessor(raiz->dir, valor);
-        }
-    }
-}*/

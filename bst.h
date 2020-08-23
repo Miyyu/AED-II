@@ -26,11 +26,11 @@ int altura(no* raiz); //OK
 //Op 9
 int quantidade_elementos(no* raiz); // OK
 //Op 10
-int existe_elemento(no* raiz, int valor); //Retornar 1(existe) ou 0(não existe) okkkkkkkkk
+int existe_elemento(no* raiz, int valor); //Retornar 1(existe) ou 0(não existe)
 //Op 11
-no* predecessor(no* raiz, int valor); //fazer com NO* OK
+no* predecessor(no* raiz, int valor); //OK
 //Op 12
-no* sucessor(no* raiz, int valor); //fazer com NO* OK
+no* sucessor(no* raiz, int valor); //OK
 
 #endif
 
