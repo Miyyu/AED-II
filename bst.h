@@ -8,29 +8,29 @@ typedef struct no{
 }no;
 
 //Op 1
-no* inserir(no* raiz, int valor); //OK
+no* inserir(no* raiz, int valor);
 //Op 2
-void preorder(no* raiz);  //OK
+void preorder(no* raiz);
 //Op 3
-void inorder(no* raiz); //OK
+void inorder(no* raiz);
 //Op 4
-void posorder(no* raiz); //OK
+void posorder(no* raiz);
 //Op 5
 no* remover(no* raiz, int valor);
 //Op 6
-no* maior(no* raiz); //OK
+int maior(no* raiz);
 //Op 7
-no* menor(no* raiz); //OK
+int menor(no* raiz);
 //Op 8
-int altura(no* raiz); //OK
+int altura(no* raiz);
 //Op 9
-int quantidade_elementos(no* raiz); // OK
+int quantidade_elementos(no* raiz);
 //Op 10
-int existe_elemento(no* raiz, int valor); //Retornar 1(existe) ou 0(não existe) okkkkkkkkk
+int existe_elemento(no* raiz, int valor); //Retornar 1(existe) ou 0(não existe)
 //Op 11
-no* predecessor(no* raiz, int valor); //fazer com NO* OK
+int predecessor(no* raiz, int valor);
 //Op 12
-no* sucessor(no* raiz, int valor); //fazer com NO* OK
+int sucessor(no* raiz, int valor); 
 
 #endif
 

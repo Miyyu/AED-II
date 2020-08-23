@@ -5,9 +5,6 @@
 int main(int argc, char* argv[]){
     no* raiz;
     raiz = NULL;
-    no* x;
-    no* y;
-
 
     while(1 == 1){
         int opcao;
@@ -40,47 +37,35 @@ int main(int argc, char* argv[]){
                 raiz = remover(raiz, valor);
                 break;
 
-            /*case 6:
-                printf("MAIOR[%d]", maior(raiz));
-                break;
-            
-            case 7:
-                printf("MENOR[%d]", menor(raiz));
-                break;*/
-
             case 6:
-                x = maior(raiz);
-                printf("MAIOR[%d]", x->valor) ;//OLHAR DEPOIS
-                break;
-
-            case 7:
-                y = menor(raiz);
-                printf("MENOR[%d]", y->valor); //OLHAR DEPOIS
+                printf("[%d]", maior(raiz));
                 break;
             
+            case 7:
+                printf("[%d]", menor(raiz));
+                break;
+
             case 8:
-                printf("Altura: [%d]", altura(raiz));
+                printf("[%d]", altura(raiz));
                 break;
 
             case 9:
-                printf("QUANT[%d]", quantidade_elementos(raiz)); //OLHAR DEPOIS
+                printf("[%d]", quantidade_elementos(raiz));
                 break;
 
             case 10:
                 scanf("%d", &valor);
-                printf("Existe: [%d] ", existe_elemento(raiz, valor));  //OLHAR DEPOIS
+                printf("[%d]", existe_elemento(raiz, valor));
                 break;
 
             case 11:
                 scanf("%d", &valor);
-                x = predecessor(raiz, valor); //RETORNAR NADA QUANDO NÃO EXISTE
-                printf("PRE[%d]", x->valor);
+                printf("[%d]", predecessor(raiz, valor));
                 break;
 
             case 12:
                 scanf("%d", &valor);
-                y = sucessor(raiz, valor);
-                printf("SUCES[%d]", y->valor); //RETORNAR NADA QUANDO NÃO EXISTE
+                printf("[%d]", sucessor(raiz, valor));
                 break;
 
             case 99:

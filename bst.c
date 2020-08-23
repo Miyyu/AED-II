@@ -53,18 +53,6 @@ void posorder(no* raiz){
 
 // -------------------------REMOVER-------------------------------------------
 
-/*no* remover(no* raiz, int valor){
-    if(raiz != NULL){
-
-        if(valor == raiz->valor){
-
-        }
-        else{
-            if(valor >)
-        }
-    }
-}*/
-
 no* remover(no* raiz, int valor){
     if(raiz != NULL){
         no* aux = raiz;
@@ -95,9 +83,9 @@ no* remover(no* raiz, int valor){
 
                     //caso 3: possui dois filho
                     else if(aux->dir != NULL && aux->esq != NULL){
-                        no* menorValor = menor(aux->dir);
-                        aux->valor = menorValor->valor;
-                        aux->dir = remover(aux->dir, menorValor->valor);
+                        int menorValor = menor(aux->dir);
+                        aux->valor = menorValor;
+                        aux->dir = remover(aux->dir, menorValor);
                         return raiz;
                     }
 
@@ -163,31 +151,7 @@ no* remover(no* raiz, int valor){
 }
 //-----------------------(<) & (>)---------------------------------------------
 
-no* maior(no* raiz){
-    if(raiz != NULL){
-        no* aux = raiz;
-        if(aux->dir != NULL){
-            maior(aux->dir);
-        }
-        else{
-            return aux;
-        }
-    }
-}
-
-no* menor(no* raiz){  //OLHAR
-    if(raiz != NULL){
-        no* aux = raiz;
-        if(aux->esq != NULL){
-            menor(aux->esq);
-        }
-        else{
-            return aux;
-        }    
-    }
-}
-
-/*int maior(no* raiz){  //OLHAR
+int maior(no* raiz){  //OLHAR
     if(raiz != NULL){
         if(raiz->dir != NULL){
             maior(raiz->dir);
@@ -207,7 +171,7 @@ int menor(no* raiz){  //OLHAR
             return raiz->valor;
         }    
     }
-}*/
+}
 
 //--------------------------ALTURA-------------------------------------
 
@@ -261,63 +225,7 @@ int existe_elemento(no* raiz, int valor){
     }
 }
 
-no* predecessor(no* raiz, int valor){
-    if(raiz != NULL){
-        no* aux = raiz;
-        no* i = NULL;
-
-        while(aux != NULL){
-            if(valor == aux->valor){
-                if(aux->esq != NULL){
-                    return maior(aux->esq);
-                }
-                else{
-                    if(i != NULL){
-                        return i;
-                    }
-                }
-            }
-            if(valor > aux->valor){
-                i = aux;
-                aux = aux->dir;
-            }
-            else{
-                aux = aux->esq;
-            }
-        }
-
-    }
-}
-
-no* sucessor(no* raiz, int valor){
-    if(raiz != NULL){
-        no* aux = raiz;
-        no* i = NULL;
-
-        while(aux != NULL){
-            if(valor == aux->valor){
-                if(aux->dir != NULL){
-                    return menor(aux->dir);
-                }
-                else{
-                    if(i != NULL){
-                        return i;
-                    }
-                }
-            }
-            if(valor > aux->valor){
-                aux = aux->dir;
-            }
-            else{
-                i = aux;
-                aux = aux->esq;
-            }
-        }        
-    }
-}
-
-/*int predecessor(no* raiz, int valor){
-    printf("%d\n", i);
+int predecessor(no* raiz, int valor){
    if(raiz != NULL){
         if(valor == raiz->valor){
            if(raiz->esq != NULL){
@@ -356,4 +264,4 @@ int sucessor(no* raiz, int valor){
             sucessor(raiz->dir, valor);
         }
     }
-}*/
+}
