@@ -33,6 +33,3 @@ no* predecessor(no* raiz, int valor); //OK
 no* sucessor(no* raiz, int valor); //OK
 
 #endif
-
-
-

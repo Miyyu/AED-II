@@ -50,7 +50,6 @@ void posorder(no* raiz){
     }
 }
 
-
 // -------------------------REMOVER-------------------------------------------
 
 no* remover(no* raiz, int valor){
@@ -252,6 +251,9 @@ no* predecessor(no* raiz, int valor){
             }
         }
 
+    }
+    else{
+        return NULL;
     }
 }
 

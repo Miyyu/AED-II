@@ -39,12 +39,16 @@ int main(int argc, char* argv[]){
 
             case 6:
                 x = maior(raiz);
-                printf("[%d]", x->valor);
+                if(x != NULL){
+                    printf("[%d]", x->valor);
+                }                                
                 break;
 
             case 7:
                 y = menor(raiz);
-                printf("[%d]", y->valor);
+                if(y != NULL){
+                    printf("[%d]", y->valor);
+                }
                 break;
             
             case 8:
@@ -63,13 +67,17 @@ int main(int argc, char* argv[]){
             case 11:
                 scanf("%d", &valor);
                 x = predecessor(raiz, valor);
-                printf("[%d]", x->valor);
+                if(x != NULL){
+                    printf("[%d]", x->valor);
+                }                
                 break;
 
             case 12:
                 scanf("%d", &valor);
                 y = sucessor(raiz, valor);
-                printf("[%d]", y->valor);
+                if(y != NULL){
+                    printf("[%d]", y->valor);
+                }
                 break;
 
             case 99:
