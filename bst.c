@@ -2,20 +2,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-no* inserir(no* raiz, int valor){
+no* inserir(no* raiz, int chave){
     if(raiz == NULL){
         no* novo = (no*) malloc(sizeof(no));
         novo->dir = NULL;
         novo->esq = NULL;
-        novo->valor = valor;
+        novo->chave = chave;
         return novo;
     }
     else{
-        if(valor < raiz->valor){
-            raiz->esq = inserir(raiz->esq, valor);
+        if(chave < raiz->chave){
+            raiz->esq = inserir(raiz->esq, chave);
         }
         else{
-            raiz->dir = inserir(raiz->dir, valor);
+            raiz->dir = inserir(raiz->dir, chave);
         }
          return raiz;
     }     
@@ -25,7 +25,7 @@ no* inserir(no* raiz, int valor){
 
 void preorder(no* raiz){
     if(raiz != NULL){
-        printf("[%d]", raiz->valor);
+        printf("[%d]", raiz->chave);
         preorder(raiz->esq);
         preorder(raiz->dir);
     }
@@ -35,7 +35,7 @@ void preorder(no* raiz){
 void inorder(no* raiz){
     if(raiz != NULL){
         inorder(raiz->esq);
-        printf("[%d]", raiz->valor);
+        printf("[%d]", raiz->chave);
         inorder(raiz->dir);
     }
 }
@@ -44,25 +44,25 @@ void posorder(no* raiz){
     if(raiz != NULL){
         posorder(raiz->esq);
         posorder(raiz->dir);
-        printf("[%d]", raiz->valor);
+        printf("[%d]", raiz->chave);
     }
 }
 
 // -------------------------REMOVER-------------------------------------------
 
-no* remover(no* raiz, int valor){
+no* remover(no* raiz, int chave){
     if(raiz != NULL){
         no* aux = raiz;
         no* ant = NULL;
 
-        if(existe_elemento(raiz, valor) != 0){
+        if(existe(raiz, chave) != 0){
 
             while(aux != NULL){
-                if(valor == aux->valor){
+                if(chave == aux->chave){
                     //caso 1: não possui filho
                     if(aux->dir == NULL && aux->esq == NULL){
-                        if(ant != NULL){ //Verificando se minha raiz só tem um valor
-                            if(ant->valor > aux->valor){
+                        if(ant != NULL){ //Verificando se minha raiz só tem um chave
+                            if(ant->chave > aux->chave){
                                 free(aux);
                                 ant->esq = NULL;
                             }
@@ -80,16 +80,16 @@ no* remover(no* raiz, int valor){
 
                     //caso 3: possui dois filho
                     else if(aux->dir != NULL && aux->esq != NULL){
-                        no* menorValor = menor(aux->dir);
-                        aux->valor = menorValor->valor;
-                        aux->dir = remover(aux->dir, menorValor->valor);
+                        no* menorchave = menor(aux->dir);
+                        aux->chave = menorchave->chave;
+                        aux->dir = remover(aux->dir, menorchave->chave);
                         return raiz;
                     }
 
                     //caso 2: possui um filho
                     else{
-                        if(ant != NULL){ //Verificando se minha árvore só tem 2 valores
-                            if(valor < ant->valor){
+                        if(ant != NULL){ //Verificando se minha árvore só tem 2 chavees
+                            if(chave < ant->chave){
                                 if(aux->dir != NULL){
                                     ant->esq = aux->dir;
                                     free(aux);
@@ -126,7 +126,7 @@ no* remover(no* raiz, int valor){
                     }
                 }
                 else{
-                    if(valor > aux->valor){
+                    if(chave > aux->chave){
                         ant = aux;
                         aux = aux->dir;                    
                     }
@@ -207,16 +207,16 @@ int quantidade_elementos(no* raiz){
 
 //-------------------------------EXISTE-----------------------------------
 
-int existe_elemento(no* raiz, int valor){
+int existe(no* raiz, int chave){
     if(raiz != NULL){
-        if(valor == raiz->valor){
+        if(chave == raiz->chave){
             return 1;
         }
-        if(valor < raiz->valor && raiz->esq != NULL){
-            existe_elemento(raiz->esq, valor);
+        if(chave < raiz->chave && raiz->esq != NULL){
+            existe(raiz->esq, chave);
         }
-        else if(valor > raiz->valor && raiz->dir != NULL){
-            existe_elemento(raiz->dir, valor);
+        else if(chave > raiz->chave && raiz->dir != NULL){
+            existe(raiz->dir, chave);
         }
         else{
             return 0;
@@ -224,13 +224,13 @@ int existe_elemento(no* raiz, int valor){
     }
 }
 
-no* predecessor(no* raiz, int valor){
+no* predecessor(no* raiz, int chave){
     if(raiz != NULL){
         no* aux = raiz;
         no* i = NULL;
 
         while(aux != NULL){
-            if(valor == aux->valor){
+            if(chave == aux->chave){
                 if(aux->esq != NULL){
                     return maior(aux->esq);
                 }
@@ -240,7 +240,7 @@ no* predecessor(no* raiz, int valor){
                     }
                 }
             }
-            if(valor > aux->valor){
+            if(chave > aux->chave){
                 i = aux;
                 aux = aux->dir;
             }
@@ -255,13 +255,13 @@ no* predecessor(no* raiz, int valor){
     }
 }
 
-no* sucessor(no* raiz, int valor){
+no* sucessor(no* raiz, int chave){
     if(raiz != NULL){
         no* aux = raiz;
         no* i = NULL;
 
         while(aux != NULL){
-            if(valor == aux->valor){
+            if(chave == aux->chave){
                 if(aux->dir != NULL){
                     return menor(aux->dir);
                 }
@@ -271,7 +271,7 @@ no* sucessor(no* raiz, int valor){
                     }
                 }
             }
-            if(valor > aux->valor){
+            if(chave > aux->chave){
                 aux = aux->dir;
             }
             else{

@@ -13,10 +13,10 @@ int main(int argc, char* argv[]){
         scanf("%d", &opcao);
 
         switch(opcao){
-            int valor;
+            int chave;
             case 1:
-                scanf("%d", &valor);
-                raiz = inserir(raiz, valor);
+                scanf("%d", &chave);
+                raiz = inserir(raiz, chave);
                 break;
             
             case 2:
@@ -32,18 +32,18 @@ int main(int argc, char* argv[]){
                 break;
 
             case 5:
-                scanf("%d", &valor);
-                raiz = remover(raiz, valor);
+                scanf("%d", &chave);
+                raiz = remover(raiz, chave);
                 break;
 
             case 6:
                 retorno = maior(raiz);
-                printf("[%d]", retorno->valor);                              
+                printf("[%d]", retorno->chave);                              
                 break;
 
             case 7:
                 retorno = menor(raiz);
-                printf("[%d]", retorno->valor);
+                printf("[%d]", retorno->chave);
                 break;
             
             case 8:
@@ -55,20 +55,20 @@ int main(int argc, char* argv[]){
                 break;
 
             case 10:
-                scanf("%d", &valor);
-                printf("[%d]", existe_elemento(raiz, valor));  
+                scanf("%d", &chave);
+                printf("[%d]", existe(raiz, chave));  
                 break;
 
             case 11:
-                scanf("%d", &valor);
-                retorno = predecessor(raiz, valor);
-                printf("[%d]", retorno->valor);              
+                scanf("%d", &chave);
+                retorno = predecessor(raiz, chave);
+                printf("[%d]", retorno->chave);              
                 break;
 
             case 12:
-                scanf("%d", &valor);
-                retorno = sucessor(raiz, valor);
-                printf("[%d]", retorno->valor);                
+                scanf("%d", &chave);
+                retorno = sucessor(raiz, chave);
+                printf("[%d]", retorno->chave);                
                 break;
 
             case 99:
