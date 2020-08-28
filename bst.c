@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int quant, i; //VARIÁVEL GLOBAL
-
 no* inserir(no* raiz, int valor){
     if(raiz == NULL){
         no* novo = (no*) malloc(sizeof(no));
@@ -61,9 +59,9 @@ no* remover(no* raiz, int valor){
 
             while(aux != NULL){
                 if(valor == aux->valor){
-                    //caso 1: remover a folha
+                    //caso 1: não possui filho
                     if(aux->dir == NULL && aux->esq == NULL){
-                        if(ant != NULL){
+                        if(ant != NULL){ //Verificando se minha raiz só tem um valor
                             if(ant->valor > aux->valor){
                                 free(aux);
                                 ant->esq = NULL;
@@ -90,26 +88,26 @@ no* remover(no* raiz, int valor){
 
                     //caso 2: possui um filho
                     else{
-                        if(ant != NULL){
+                        if(ant != NULL){ //Verificando se minha árvore só tem 2 valores
                             if(valor < ant->valor){
                                 if(aux->dir != NULL){
-                                    free(aux);
                                     ant->esq = aux->dir;
+                                    free(aux);
                                     
                                 }
                                 else{
-                                    free(aux);
-                                    ant->esq = aux->esq;                            
+                                    ant->esq = aux->esq;
+                                    free(aux);                            
                                 }
                             }
                             else{
                                 if(aux->dir != NULL){
-                                    free(aux);
-                                    ant->dir = aux->dir;                            
+                                    ant->dir = aux->dir;  
+                                    free(aux);                          
                                 }
                                 else{
-                                    free(aux);
-                                    ant->dir = aux->esq;                            
+                                    ant->dir = aux->esq;
+                                    free(aux);                           
                                 }
                             }
                             return raiz;
@@ -198,12 +196,12 @@ int altura(no* raiz){
 
 int quantidade_elementos(no* raiz){
     if(raiz != NULL){
-        quantidade_elementos(raiz->esq);
-        quantidade_elementos(raiz->dir);
-        quant += 1;
+        int quantE = quantidade_elementos(raiz->esq);
+        int quantD = quantidade_elementos(raiz->dir);
+        return quantE + quantD + 1;
     }
     else{
-        return quant;
+        return 0;
     }
 }
 

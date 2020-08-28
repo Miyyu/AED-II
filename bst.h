@@ -16,7 +16,7 @@ void inorder(no* raiz); //OK
 //Op 4
 void posorder(no* raiz); //OK
 //Op 5
-no* remover(no* raiz, int valor);
+no* remover(no* raiz, int valor); //OK
 //Op 6
 no* maior(no* raiz); //OK
 //Op 7

@@ -5,8 +5,7 @@
 int main(int argc, char* argv[]){
     no* raiz;
     raiz = NULL;
-    no* x;
-    no* y;
+    no* retorno = NULL;
 
 
     while(1 == 1){
@@ -38,17 +37,13 @@ int main(int argc, char* argv[]){
                 break;
 
             case 6:
-                x = maior(raiz);
-                if(x != NULL){
-                    printf("[%d]", x->valor);
-                }                                
+                retorno = maior(raiz);
+                printf("[%d]", retorno->valor);                              
                 break;
 
             case 7:
-                y = menor(raiz);
-                if(y != NULL){
-                    printf("[%d]", y->valor);
-                }
+                retorno = menor(raiz);
+                printf("[%d]", retorno->valor);
                 break;
             
             case 8:
@@ -66,18 +61,14 @@ int main(int argc, char* argv[]){
 
             case 11:
                 scanf("%d", &valor);
-                x = predecessor(raiz, valor);
-                if(x != NULL){
-                    printf("[%d]", x->valor);
-                }                
+                retorno = predecessor(raiz, valor);
+                printf("[%d]", retorno->valor);              
                 break;
 
             case 12:
                 scanf("%d", &valor);
-                y = sucessor(raiz, valor);
-                if(y != NULL){
-                    printf("[%d]", y->valor);
-                }
+                retorno = sucessor(raiz, valor);
+                printf("[%d]", retorno->valor);                
                 break;
 
             case 99:
