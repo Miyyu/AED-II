@@ -124,19 +124,55 @@ arvore remover (int valor, arvore raiz, int *diminuiu) {
 	if(raiz == NULL) 
 		return NULL;
 	
-	if(raiz->dado == valor) {		
-		if(raiz->esq == NULL) {
+	if(raiz->dado == valor) {	
+		*diminuiu = 1;
+
+		if(raiz->esq == NULL && raiz->dir == NULL){  // caso 1: remover na folha
 			*diminuiu = 1;
-			return raiz->dir;
+			free(raiz);
+			return NULL;
 		}
-		if(raiz->dir == NULL) {
-			*diminuiu = 1;
-			return raiz->esq;
+
+		if(raiz->esq != NULL && raiz->dir != NULL){ // caso 3: possui 2 filhos
+			raiz->dado = menor_elemento(raiz->dir);
+			raiz->dir = remover(raiz->dado, raiz->dir, diminuiu);
+
+			if(*diminuiu){
+				switch(raiz->fb){
+					case 0:
+						raiz->fb = -1;
+						*diminuiu = 0;
+						break;
+					case 1:
+						raiz->fb = 0;
+						*diminuiu = 1;
+						break;
+					case -1:
+					 	raiz->fb = -2;						
+						if(raiz->esq->fb == 0){
+							*diminuiu = 0;
+						}
+						else{
+							*diminuiu = 1;
+						}						
+						return rotacionar(raiz);
+						break;
+				}
+			}
 		}
-		raiz->dado = maior_elemento(raiz->esq);
-		raiz->esq = remover(raiz->dado, raiz->esq, diminuiu);
-		return raiz;
-	}	
+
+		else{ // caso 2: possui 1 filho
+			if(raiz->esq == NULL) {
+				*diminuiu = 1;
+				return raiz->dir;
+			}
+			if(raiz->dir == NULL) {
+				*diminuiu = 1;
+				return raiz->esq;
+			}
+		}		
+	}
+
 	if(valor > raiz->dado) {
 			raiz->dir = remover(valor, raiz->dir, diminuiu);
 
@@ -144,13 +180,22 @@ arvore remover (int valor, arvore raiz, int *diminuiu) {
 				switch(raiz->fb){
 					case 0:
 						raiz->fb = -1;
+						*diminuiu = 0;
 						break;
 					case 1:
 						raiz->fb = 0;
+						*diminuiu = 1;
 						break;
 					case -1:
 						raiz->fb = -2;
+						if(raiz->esq->fb == 0){
+                            *diminuiu = 0;
+                    	}
+						else{
+                            *diminuiu = 1;
+                        } 
 						return rotacionar(raiz);
+						break;
 				}
 			}
 	} else {
@@ -160,13 +205,21 @@ arvore remover (int valor, arvore raiz, int *diminuiu) {
 			switch(raiz->fb){
 				case 0:
 					raiz->fb = 1;
+					*diminuiu = 0;
 					break;
 				case 1:
 					raiz->fb = 2;
+					if(raiz->dir->fb == 0){
+                        *diminuiu= 0;
+                    }
+					else{
+                        *diminuiu= 1;                  
+                    }
 					return rotacionar(raiz);
 					break;
 				case -1:
 					raiz->fb = 0;
+					*diminuiu = 1;
 					break;						
 			}
 		}
@@ -218,7 +271,6 @@ arvore rotacao_simples_esquerda(arvore raiz) {
 		u->fb = -1;
 	}	    
     //Retorna a raiz da sub-árvore resultante, ou seja "u".
-	printf("rotacao simples esquerda\n");
 	return u;
 }
 
@@ -251,7 +303,6 @@ arvore rotacao_dupla_esquerda(arvore raiz) {
 		u->fb = 1; // u não possui filho a esquerda, logo fica 1
 		v->fb = 0;
 	}
-	printf("rotacao dupla esquerda\n");
 	return v;		
 }
 
@@ -275,7 +326,6 @@ arvore rotacao_simples_direita(arvore raiz) {
 		u->fb = 1;
 		p->fb = -1;
 	}
-	printf("rotacao simples esquerda\n");
 	return u;
 }
 
@@ -307,7 +357,6 @@ arvore rotacao_dupla_direita(arvore raiz) {
 		u->fb = 0;
 		v->fb = 0;
 	}
-	printf("rotacao dupla direita\n");	
 	return v;
 }
 
@@ -328,7 +377,7 @@ void imprimir(arvore raiz) {
 Auxiliar de imprimir
 ---*/
 void imprimir_elemento(arvore raiz) {
-	printf("NUM: %d FB:[%d]", raiz->dado, raiz->fb); //ARRUMAAAAAAAAAAAAERRRR
+	printf("%d [%d]", raiz->dado, raiz->fb);
 }
 
 int altura(arvore raiz) {
@@ -360,7 +409,7 @@ int menor_elemento(arvore raiz) {
 	if(raiz->esq == NULL)
 			return raiz->dado;
 	else
-			return maior_elemento(raiz->esq);
+			return menor_elemento(raiz->esq);
 }
 
 void pre_order(arvore raiz) {
