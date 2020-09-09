@@ -134,26 +134,26 @@ arvore remover (int valor, arvore raiz, int *diminuiu) {
 		}
 
 		if(raiz->esq != NULL && raiz->dir != NULL){ // caso 3: possui 2 filhos
-			raiz->dado = menor_elemento(raiz->dir);
-			raiz->dir = remover(raiz->dado, raiz->dir, diminuiu);
+			raiz->dado = maior_elemento(raiz->esq);
+			raiz->esq = remover(raiz->dado, raiz->esq, diminuiu);
 
 			if(*diminuiu){
 				switch(raiz->fb){
 					case 0:
-						raiz->fb = -1;
+						raiz->fb = 1;
 						*diminuiu = 0;
 						break;
-					case 1:
+					case -1:
 						raiz->fb = 0;
 						*diminuiu = 1;
 						break;
-					case -1:
-					 	raiz->fb = -2;						
+					case 1:
+					 	raiz->fb = 2;						
 						if(raiz->esq->fb == 0){
-							*diminuiu = 0;
+							*diminuiu = 1;
 						}
 						else{
-							*diminuiu = 1;
+							*diminuiu = 0;
 						}						
 						return rotacionar(raiz);
 						break;
