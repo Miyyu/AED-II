@@ -125,15 +125,13 @@ arvore remover (int valor, arvore raiz, int *diminuiu) {
 		return NULL;
 	
 	if(raiz->dado == valor) {	
-		*diminuiu = 1;
-
+		
 		if(raiz->esq == NULL && raiz->dir == NULL){  // caso 1: remover na folha
 			*diminuiu = 1;
-			free(raiz);
 			return NULL;
 		}
 
-		if(raiz->esq != NULL && raiz->dir != NULL){ // caso 3: possui 2 filhos
+		else if(raiz->esq != NULL && raiz->dir != NULL){ // caso 3: possui 2 filhos
 			raiz->dado = maior_elemento(raiz->esq);
 			raiz->esq = remover(raiz->dado, raiz->esq, diminuiu);
 
@@ -149,7 +147,7 @@ arvore remover (int valor, arvore raiz, int *diminuiu) {
 						break;
 					case 1:
 					 	raiz->fb = 2;						
-						if(raiz->esq->fb == 0){
+						if(raiz->dir->fb == 0){
 							*diminuiu = 1;
 						}
 						else{
@@ -159,14 +157,15 @@ arvore remover (int valor, arvore raiz, int *diminuiu) {
 						break;
 				}
 			}
+			return raiz;
 		}
 
 		else{ // caso 2: possui 1 filho
-			if(raiz->esq == NULL) {
+			if(raiz->dir != NULL) {
 				*diminuiu = 1;
 				return raiz->dir;
 			}
-			if(raiz->dir == NULL) {
+			if(raiz->esq != NULL) {
 				*diminuiu = 1;
 				return raiz->esq;
 			}
