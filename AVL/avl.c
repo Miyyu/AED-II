@@ -125,7 +125,6 @@ arvore remover (int valor, arvore raiz, int *diminuiu) {
 		return NULL;
 	
 	if(raiz->dado == valor) {	
-		
 		if(raiz->esq == NULL && raiz->dir == NULL){  // caso 1: remover na folha
 			*diminuiu = 1;
 			return NULL;
@@ -146,12 +145,11 @@ arvore remover (int valor, arvore raiz, int *diminuiu) {
 						*diminuiu = 1;
 						break;
 					case 1:
-					 	raiz->fb = 2;						
 						if(raiz->dir->fb == 0){
-							*diminuiu = 1;
+							*diminuiu = 0;
 						}
 						else{
-							*diminuiu = 0;
+							*diminuiu = 1;
 						}						
 						return rotacionar(raiz);
 						break;
@@ -174,7 +172,6 @@ arvore remover (int valor, arvore raiz, int *diminuiu) {
 
 	if(valor > raiz->dado) {
 			raiz->dir = remover(valor, raiz->dir, diminuiu);
-
 			if(*diminuiu){
 				switch(raiz->fb){
 					case 0:
@@ -186,7 +183,6 @@ arvore remover (int valor, arvore raiz, int *diminuiu) {
 						*diminuiu = 1;
 						break;
 					case -1:
-						raiz->fb = -2;
 						if(raiz->esq->fb == 0){
                             *diminuiu = 0;
                     	}
