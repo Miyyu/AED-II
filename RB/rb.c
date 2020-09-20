@@ -96,13 +96,15 @@ void ajustar(arvore *raiz, arvore elemento){
 				continue;
 			}
 			//caso 3a: rotação dupla direita
-			if(!eh_filho_esquerdo(elemento) && eh_filho_esquerdo(elemento->pai)){
-
-					continue;
+			if(!eh_filho_esquerdo(elemento) && eh_filho_esquerdo(elemento->pai) && cor(tio(elemento)) == PRETO){
+				rotacao_dupla_direita(raiz, elemento->pai->pai);
+				continue;
 			}
 			//caso 3b: rotação dupla esquerda
-			if(eh_filho_esquerdo(elemento) && !eh_filho_esquerdo(elemento->pai)) {
-					continue;
+			if(eh_filho_esquerdo(elemento) && !eh_filho_esquerdo(elemento->pai) && cor(tio(elemento)) == PRETO) {
+				rotacao_dupla_esquerda(raiz, elemento->pai->pai);
+				//elemento->pai->cor = PRETO; VERIFICAR DEPOIS
+				continue;
 			}
 
 	}
@@ -157,7 +159,7 @@ void rotacao_simples_direita(arvore *raiz, arvore pivo){
 					else
 							u->pai->dir = u;
 			}
-			printf("SIMPLES DIRETA\n");
+			//printf("SIMPLES DIRETA\n");
 }
 
 /*
@@ -191,22 +193,105 @@ void rotacao_simples_esquerda(arvore *raiz, arvore pivo) {
 		*raiz = u;
 	else {
 			if(posicao_pivo_esq)
-					u->pai->esq = u;
+				u->pai->esq = u;
 			else
-					u->pai->dir = u;
+				u->pai->dir = u;
 	}
-	printf("SIMPLES ESQUERDA\n");
+	//printf("SIMPLES ESQUERDA\n");
 
 }
 
-/*void rotacao_dupla_direita(arvore *raiz, arvore pivo){
+void rotacao_dupla_direita(arvore *raiz, arvore pivo){
+	arvore u, v, t2, t3;
 
+	u = pivo->esq;
+	v = u->dir;
+	t2 = v->esq;
+	t3 = v->dir;
+	
+	int posicao_pivo_esq = eh_filho_esquerdo(pivo);
 
+	u->dir = t2;
+	v->esq = u;		
+	pivo->esq = v;	
+
+	pivo->esq = t3;
+	v->dir = pivo;
+	v->esq = u;
+
+	pivo->cor = VERMELHO;
+	v->cor = PRETO;
+
+	if(t2 != NULL){
+		t2->pai = u;
+	}
+	if(t3 != NULL){
+		t3->pai = pivo;
+	}
+	
+	u->pai = v;
+	v->pai = pivo->pai;
+		
+	if(eh_raiz(pivo))
+		*raiz = v;
+	else {
+		if(posicao_pivo_esq){
+			pivo->pai->esq = v;
+		}
+		else{
+			pivo->pai->dir = v;
+		}
+	}
+	pivo->pai = v;	
+
+	//printf("DUPLA DIREITA\n");
 }
 
-void rotacao_dupla_esquerda(arvore *rais, arvore pivo){
+void rotacao_dupla_esquerda(arvore *raiz, arvore pivo){
 
-}*/
+	arvore u, v, t2, t3;
+
+	u = pivo->dir;
+	v = u->esq;
+	t2 = v->esq;
+	t3 = v->dir;
+	
+	int posicao_pivo_esq = eh_filho_esquerdo(pivo);
+
+	u->esq = t3;
+	v->dir = u;		
+	pivo->dir = v;	
+
+	pivo->dir = t2;
+	v->esq = pivo;
+	v->dir = u;
+
+	pivo->cor = VERMELHO;
+	v->cor = PRETO;
+
+	if(t2 != NULL){
+		t2->pai = pivo;
+	}
+	if(t3 != NULL){
+		t3->pai = u;
+	}
+	
+	u->pai = v;
+	v->pai = pivo->pai;
+		
+	if(eh_raiz(pivo))
+		*raiz = v;
+	else {
+		if(posicao_pivo_esq){
+			pivo->pai->esq = v;
+		}
+		else{
+			pivo->pai->dir = v;
+		}
+	}
+	pivo->pai = v;
+
+}
 
 /*Retorna a cor de um nó. Observe que, por definição, o null é preto*/
 enum cor cor(arvore elemento) {
