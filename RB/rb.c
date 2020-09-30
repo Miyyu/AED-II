@@ -518,12 +518,12 @@ void reajustar(arvore *raiz, arvore elemento){
 		 if(eh_filho_esquerdo(elemento)){
 			 elemento->pai->dir->cor = VERMELHO;
 			 elemento->pai->cor = DUPLO_PRETO;
-			 elemento->cor = PRETO;
+			 retira_duplo_preto(raiz, elemento); //MUDEI AQUIIIIIIIIIIIII
 		 }
 		 else{
 			 elemento->pai->esq->cor = VERMELHO;
 			 elemento->pai->cor = DUPLO_PRETO;
-			 elemento->cor = PRETO;
+			retira_duplo_preto(raiz, elemento); // AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 		 }
 
 		reajustar(raiz,elemento->pai);
