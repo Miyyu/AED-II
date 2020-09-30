@@ -405,7 +405,6 @@ void remover (int valor, arvore *raiz) {
 		if(valor == posicao->dado) {
 			//O elemento não possui filhos
 			if(posicao->esq == NULL && posicao->dir == NULL) {
-				printf("elemento n possui filho\n");
 				//Remover raiz sem filhos					
 				if(eh_raiz(posicao)) {
 					*raiz = NULL;
@@ -415,7 +414,6 @@ void remover (int valor, arvore *raiz) {
 				//Se for vermelho, apenas remove atualizando o ponteiro 
 				//correspondente do pai
 				if(posicao->cor == VERMELHO) {
-						printf("o elemento é Vermelho\n");
 						if(eh_filho_esquerdo(posicao)){
 							posicao->pai->esq = NULL;
 						}
@@ -424,21 +422,15 @@ void remover (int valor, arvore *raiz) {
 						}
 					break;
 				} else {
-						printf("o elemento é PRETO\n");
 						//Se o elemento for preto, substitui pelo duplo preto e depois ajusta a árvore
-						printf("O ELEMENTO EH:%d\n",posicao->dado);
 						no_null->pai = posicao->pai;
 						if(eh_filho_esquerdo(posicao)){
-							printf("entrou esq\n");
 							posicao->pai->esq = no_null;
 						}
 						else{
-							printf("entrou , dir\n");
 							posicao->pai->dir = no_null;
 						}
-						printf("entrou em reajustar\n");
 						reajustar(raiz, no_null);
-						printf("VOLTOU\n");
 					break;
 				}
 			}
@@ -700,7 +692,7 @@ void reajustar(arvore *raiz, arvore elemento){
 		s->pai = p->pai;
 		p->pai = s;
 		//y->pai = s;
-		
+
 		retira_duplo_preto(raiz,elemento);
 		return;
 	}
