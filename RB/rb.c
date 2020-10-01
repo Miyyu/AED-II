@@ -482,7 +482,6 @@ void reajustar(arvore *raiz, arvore elemento){
 
 	//caso 1
 	if(eh_raiz(elemento)) {
-		printf("caso 1\n");
 		elemento->cor = PRETO;
 		return;
 	}
@@ -491,7 +490,6 @@ void reajustar(arvore *raiz, arvore elemento){
 		 cor(irmao(elemento)) == VERMELHO &&
 		 cor(irmao(elemento)->dir) == PRETO &&
 		 cor(irmao(elemento)->esq) == PRETO ) {
-			 printf("CASO 2\n");
 
 				if(eh_filho_esquerdo(elemento)){
 						rotacao_simples_esquerda(raiz, elemento->pai);
@@ -513,7 +511,6 @@ void reajustar(arvore *raiz, arvore elemento){
 	 cor(irmao(elemento)) == PRETO && 
 	 cor(irmao(elemento)->dir) == PRETO &&
 	 cor(irmao(elemento)->esq) == PRETO) {
-		 printf("CASO 3\n");
 
 		 if(eh_filho_esquerdo(elemento)){
 			 elemento->pai->dir->cor = VERMELHO;
@@ -535,7 +532,7 @@ void reajustar(arvore *raiz, arvore elemento){
 	cor(irmao(elemento)) == PRETO &&
 	cor(irmao(elemento)->dir) == PRETO &&
 	cor(irmao(elemento)->esq) == PRETO){
-		printf("CASO 4\n");
+
 		if(eh_filho_esquerdo(elemento)){
 			elemento->pai->dir->cor = VERMELHO;
 			elemento->pai->cor = PRETO;			
@@ -552,7 +549,6 @@ void reajustar(arvore *raiz, arvore elemento){
 	if(cor(elemento->pai->dir) == PRETO &&
 	cor(irmao(elemento)->dir) == PRETO &&
 	cor(irmao(elemento)->esq) == VERMELHO){
-		printf("CASO 5a\n");
 		arvore p,s,x,y;
 
 		p = elemento->pai;
@@ -561,7 +557,7 @@ void reajustar(arvore *raiz, arvore elemento){
 		y = s->dir;
 
 		//rotacionar
-		s->esq = x->dir;// MUDEI AQUIII
+		s->esq = x->dir;
 		x->dir = s;
 		p->dir = x;
 
@@ -573,7 +569,7 @@ void reajustar(arvore *raiz, arvore elemento){
 		if(s->esq != NULL){
 			s->esq->pai = s;
 		}
-		x->pai = p; ////////////!!!!!!!!
+		x->pai = p;
 		s->pai = x;		
 
 		reajustar(raiz, elemento);
@@ -584,7 +580,7 @@ void reajustar(arvore *raiz, arvore elemento){
 	if(cor(elemento->pai->esq) == PRETO &&
 	cor(irmao(elemento)->dir) == VERMELHO &&
 	cor(irmao(elemento)->esq) == PRETO){
-		printf("CASO 5B\n");
+
 		arvore p,s,x;
 
 		p = elemento->pai;
@@ -613,7 +609,7 @@ void reajustar(arvore *raiz, arvore elemento){
 	//caso 6a
 	if(cor(elemento->pai->dir) == PRETO &&
 	cor(irmao(elemento)->dir) == VERMELHO){
-		printf("CASO6A\n");
+
 		arvore p,s,x,y;
 
 		p = elemento->pai;
@@ -656,7 +652,7 @@ void reajustar(arvore *raiz, arvore elemento){
 	//caso 6b
 	if(cor(elemento->pai->esq) == PRETO &&
 	cor(irmao(elemento)->esq) == VERMELHO){
-		printf("CASO6A\n");
+
 		arvore p,s,x,y;
 
 		p = elemento->pai;
@@ -691,7 +687,6 @@ void reajustar(arvore *raiz, arvore elemento){
 		}
 		s->pai = p->pai;
 		p->pai = s;
-		//y->pai = s;
 
 		retira_duplo_preto(raiz,elemento);
 		return;
