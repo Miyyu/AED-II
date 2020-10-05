@@ -508,19 +508,19 @@ void reajustar(arvore *raiz, arvore elemento){
 
 	//caso 3
 	if(cor(elemento->pai) == PRETO &&
-	 cor(irmao(elemento)) == PRETO && 
-	 cor(irmao(elemento)->dir) == PRETO &&
-	 cor(irmao(elemento)->esq) == PRETO) {
+	cor(irmao(elemento)) == PRETO && 
+	cor(irmao(elemento)->dir) == PRETO &&
+	cor(irmao(elemento)->esq) == PRETO) {
 
 		 if(eh_filho_esquerdo(elemento)){
 			 elemento->pai->dir->cor = VERMELHO;
 			 elemento->pai->cor = DUPLO_PRETO;
-			 retira_duplo_preto(raiz, elemento); //MUDEI AQUIIIIIIIIIIIII
+			 retira_duplo_preto(raiz, elemento);
 		 }
 		 else{
 			 elemento->pai->esq->cor = VERMELHO;
 			 elemento->pai->cor = DUPLO_PRETO;
-			retira_duplo_preto(raiz, elemento); // AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+			retira_duplo_preto(raiz, elemento);
 		 }
 
 		reajustar(raiz,elemento->pai);
@@ -549,13 +549,12 @@ void reajustar(arvore *raiz, arvore elemento){
 	if(cor(elemento->pai->dir) == PRETO &&
 	cor(irmao(elemento)->dir) == PRETO &&
 	cor(irmao(elemento)->esq) == VERMELHO){
-		arvore p,s,x,y;
+		arvore p,s,x;
 
 		p = elemento->pai;
 		s = p->dir;
 		x = s->esq;
-		y = s->dir;
-
+		
 		//rotacionar
 		s->esq = x->dir;
 		x->dir = s;
@@ -586,6 +585,7 @@ void reajustar(arvore *raiz, arvore elemento){
 		p = elemento->pai;
 		s = p->esq;
 		x = s->dir;
+		
 		//rotacionar
 		s->dir = x->esq; 
 		p->esq = x;
@@ -616,15 +616,19 @@ void reajustar(arvore *raiz, arvore elemento){
 		s = p->dir;
 		x = s->esq;
 		y = s->dir;
+		
 		int posicao_pivo_esq = eh_filho_esquerdo(elemento->pai);
+		
 		//rotação
 		p->dir = x;
 		s->esq = p;
-		//set cor
+		
+		//Colorindo
 		s->cor = cor(p);
 		y->cor = PRETO;
 		p->cor = PRETO;
-		//set pai
+		
+		//Nomeando pais
 		if(x != NULL){
 			x->pai = p;
 		}
@@ -702,4 +706,3 @@ void retira_duplo_preto(arvore *raiz, arvore elemento) {
 			else
 				elemento->cor = PRETO;
 }
-
