@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdio_ext.h>
 #include <stdlib.h>
-#include "bst.h"
+#include "avl.h"
 #include <string.h>
 
 
@@ -11,8 +11,8 @@ void inicializar(arvore *raiz) {
 
 int inicializarTabela(tabela *tab) {
 	inicializar(&tab->indices);	
-	tab->arquivo_dados = fopen("dados.dat", "a+b");
-	tab->indices = carregar_arquivo("indices.dat", tab->indices);
+	tab->arquivo_dados = fopen("dados.txt", "a+b");
+	tab->indices = carregar_arquivo("indices.txt", tab->indices);
 	if(tab->arquivo_dados != NULL)
 		return 1;
 	else
@@ -25,35 +25,203 @@ void finalizar (tabela *tab) {
 }
 
 void adicionarLivro(tabela *tab, dado *livro){
+	int cresceu;
 	if(tab->arquivo_dados != NULL) {
-			fseek(tab->arquivo_dados, 0L, SEEK_END);
+		fseek(tab->arquivo_dados, 0L, SEEK_END);
 
-			tipo_dado * novo = (tipo_dado *) malloc(sizeof(tipo_dado));
-			novo->chave = livro->codigo;
-			novo->indice = ftell(tab->arquivo_dados);
+		tipo_dado * novo = (tipo_dado *) malloc(sizeof(tipo_dado));
+		novo->chave = livro->codigo;
+		novo->indice = ftell(tab->arquivo_dados);
 
-			fwrite(livro, sizeof(dado), 1, tab->arquivo_dados);
-			tab->indices = adicionar(novo, tab->indices);
+		fwrite(livro, sizeof(dado), 1, tab->arquivo_dados);
+		tab->indices = adicionar(novo, tab->indices, &cresceu); //INSERIR O CRESCEU;
 	}
 }
 
-
-arvore adicionar (tipo_dado *valor, arvore raiz) {
+// *******************************************************************************************************
+arvore adicionar (tipo_dado *valor, arvore raiz, int *cresceu){
 	if(raiz == NULL) {
-		arvore novo = (arvore) malloc(sizeof(struct no_bst));
+		arvore novo = (arvore) malloc(sizeof(struct no_avl));
 		novo->dado = valor;
 		novo->esq = NULL;
 		novo->dir = NULL;
+		novo->fb = 0;
+	  * cresceu = 1; 
 		return novo;
 	}
 
-	if(valor->chave > raiz->dado->chave) {
-		raiz->dir = adicionar(valor, raiz->dir);
+	if(valor > raiz->dado) {
+		raiz->dir = adicionar(valor, raiz->dir, cresceu);
+
+        if(*cresceu) {
+			switch(raiz->fb) {
+				case 0:
+					raiz->fb = 1;
+                    *cresceu = 1;
+					break;
+			    case -1:
+					raiz->fb = 0;
+					*cresceu = 0;
+					break;
+				case 1:
+					*cresceu = 0;
+					return rotacionar(raiz);
+			}
+		}
+
 	} else {
-		raiz->esq = adicionar(valor, raiz->esq);
+	   raiz->esq = adicionar(valor, raiz->esq, cresceu);
+
+	   if(*cresceu){
+		   switch(raiz->fb){
+			   	case 0:
+					raiz->fb = -1;
+					*cresceu = 1;
+					break;
+				case 1:
+					raiz->fb = 0;
+					*cresceu = 0;
+					break;
+				case -1:
+					*cresceu = 0;
+					return rotacionar(raiz);					
+		   }
+	   }
 	}
 	return raiz;
 }
+
+arvore rotacionar(arvore raiz) {    //ADICIONADO ROTAÇÃO
+	if(raiz->fb > 0) {
+		switch(raiz->dir->fb) {
+			case 0:
+			case 1:
+				return rotacao_simples_esquerda(raiz);
+			case -1:
+				return rotacao_dupla_esquerda(raiz);					
+			} 
+	} else {
+		switch(raiz->esq->fb){
+			case 0:
+			case -1:
+				return rotacao_simples_direita(raiz);
+			case 1:
+				return rotacao_dupla_direita(raiz);
+		}
+	}
+}
+
+arvore rotacao_simples_esquerda(arvore raiz) {
+	arvore p, u, t1, t2, t3;
+    //inicializa os ponteiros
+	p = raiz;
+	u = raiz->dir;
+    t1 = p->esq;
+
+    t2 = u->esq;
+    t3 = u->dir;
+
+    //Atualiza os ponteiros
+	u->esq = p;
+	p->dir = t2;
+
+	if(u->fb == 1) {
+		p->fb = 0;
+		u->fb = 0;
+	} else {
+		p->fb = 1;
+		u->fb = -1;
+	}	    
+	return u;
+}
+
+arvore rotacao_dupla_esquerda(arvore raiz) {
+	arvore u, v, p;
+
+	p = raiz;
+	u = p->dir;
+	v = u->esq;
+
+	//rodando 1 vez
+	u->esq = v->dir;
+	v->dir = u;
+
+	p->dir = v->esq;
+	v->esq = p;
+
+	if(v->fb == 0){
+		p->fb = 0;
+		u->fb = 0;
+		v->fb = 0;
+	}
+	else if(v->fb == 1){
+		p->fb = -1;
+		u->fb = 0;
+		v->fb = 0;
+	}
+	else{ 
+		p->fb = 0;
+		u->fb = 1;
+		v->fb = 0;
+	}
+	return v;		
+}
+
+arvore rotacao_simples_direita(arvore raiz) {
+	arvore p, u, t1, t2, t3;
+
+	p = raiz;
+	u = raiz->esq;
+    t1 = p->dir;
+	t2 = u->dir;
+	t3 = u->esq;
+
+	u->dir = p;
+	p->esq = t2;
+	
+	if(u->fb == -1){
+		u->fb = 0;
+		p->fb = 0;
+	}
+	else{
+		u->fb = 1;
+		p->fb = -1;
+	}
+	return u;
+}
+
+arvore rotacao_dupla_direita(arvore raiz) {
+	arvore u, p, v;
+
+	p = raiz;
+	u = p->esq;
+	v = u->dir;
+
+	u->dir = v->esq;
+	v->esq = u;
+
+	p->esq = v->dir;
+	v->dir = p;
+
+	if(v->fb == 0){
+		p->fb = 0;
+		u->fb = 0;
+		v->fb = 0;
+	}
+	else if(v->fb == 1){
+		p->fb = 0;
+		u->fb = -1;
+		v->fb = 0;
+	}
+	else{
+		p->fb = 1;
+		u->fb = 0;
+		v->fb = 0;
+	}
+	return v;
+}
+
+//--------------------------------- MUDADO  --------------------------------------------------------
 
 int altura(arvore raiz) {
 	if(raiz == NULL) {
@@ -69,22 +237,36 @@ int maior(int a, int b) {
 		return b;
 }
 
-tipo_dado * maior_elemento(arvore raiz) {
-	if(raiz == NULL)
-			return NULL;
-	if(raiz->dir == NULL)
+int maior_elemento(arvore raiz) {
+	/*if(raiz != NULL){
+		if(raiz->dir == NULL)
 			return raiz->dado;
-	else
+		else
 			return maior_elemento(raiz->dir);
+	}*/
+
+	/*if(raiz == NULL)
+		return NULL;
+	if(raiz->dir == NULL)
+		return raiz->dado;
+	else
+		return maior_elemento(raiz->dir);*/
 }
 
-tipo_dado * menor_elemento(arvore raiz) {
-	if(raiz == NULL)
+int menor_elemento(arvore raiz) {
+	if(raiz != NULL){
+		if(raiz->esq == NULL)
+			return raiz->dado;
+		else
+			return menor_elemento(raiz->esq);
+	}
+
+	/*if(raiz == NULL)
 			return NULL;
 	if(raiz->esq == NULL)
 			return raiz->dado;
 	else
-			return maior_elemento(raiz->esq);
+		return menor_elemento(raiz->esq);*/
 }
 
 void pre_order(arvore raiz, tabela *tab) {
@@ -119,7 +301,7 @@ void imprimir_elemento(arvore raiz, tabela * tab) {
 	free(temp);
 }
 
-arvore remover (int valor, arvore raiz) {
+/*arvore remover (int valor, arvore raiz) {      //MUDAAAARRRR
 	if(raiz == NULL) 
 		return NULL;
 	
@@ -140,7 +322,7 @@ arvore remover (int valor, arvore raiz) {
 			raiz->esq = remover(valor, raiz->esq);
 	}
 	return raiz;
-}
+}*/
 
 dado * ler_dados() {
 	dado *novo = (dado *) malloc(sizeof(dado));
@@ -183,6 +365,8 @@ void salvar_auxiliar(arvore raiz, FILE *arq){
 }
 
 arvore carregar_arquivo(char *nome, arvore a) {
+	int cresceu; //////// OLAAAAAAAAAAAAAAAAAAARRRRRRRRRRRRRRRRR
+
 	FILE *arq;
 	arq = fopen(nome, "rb");
 	tipo_dado * temp;
@@ -190,7 +374,7 @@ arvore carregar_arquivo(char *nome, arvore a) {
 		temp = (tipo_dado *) malloc(sizeof(tipo_dado));
 		while(fread(temp, sizeof(tipo_dado), 1, arq)) {
 			
-			a = adicionar(temp, a);			
+			a = adicionar(temp, a, &cresceu);			
 			temp = (tipo_dado *) malloc(sizeof(tipo_dado));
 
 		}

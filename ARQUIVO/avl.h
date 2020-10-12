@@ -1,5 +1,5 @@
-#ifndef BST_H
-#define BST_H
+#ifndef AVL_H
+#define AVL_H
 
 typedef struct livro {
 	char titulo[81];
@@ -13,12 +13,13 @@ typedef struct indice {
 	int indice;
 } tipo_dado;
 
-typedef struct no_bst {
+typedef struct no_avl {    //MUDEIEEEEEII
 	tipo_dado *dado;
-	struct no_bst *esq, *dir;
-} no_bst;
+	int fb;
+	struct no_avl *esq, *dir;
+} no_avl;
 
-typedef no_bst * arvore;
+typedef no_avl * arvore;
 
 typedef struct tabela {
 	FILE *arquivo_dados;
@@ -32,12 +33,12 @@ void adicionarLivro(tabela *tab, dado *livro);
 	
 
 void inicializar(arvore *raiz);
-arvore adicionar (tipo_dado *valor, arvore raiz);
+arvore adicionar (tipo_dado *valor, arvore raiz, int *cresceu);
 
 int altura(arvore raiz);
 int maior(int a, int b);
-tipo_dado * maior_elemento(arvore raiz);
-tipo_dado * menor_elemento(arvore raiz);
+int maior_elemento(arvore raiz);
+int menor_elemento(arvore raiz);
 void pre_order(arvore raiz, tabela *tab);
 void pos_order(arvore raiz, tabela *tab);
 void in_order(arvore raiz, tabela *tab);
@@ -49,6 +50,11 @@ void tirar_enter(char *string);
 void salvar_arquivo(char *nome, arvore a);
 void salvar_auxiliar(arvore raiz, FILE *arq);
 arvore carregar_arquivo(char *nome, arvore a);
+arvore rotacionar(arvore raiz);
+arvore rotacao_simples_direita(arvore raiz);
+arvore rotacao_simples_esquerda(arvore raiz);
+arvore rotacao_dupla_direita(arvore raiz);
+arvore rotacao_dupla_esquerda(arvore raiz);
 
 
 
