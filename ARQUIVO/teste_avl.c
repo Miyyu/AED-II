@@ -5,7 +5,10 @@
 int main(int argc, char * argv[]) {
 	tabela tab;
 	int opcao;
-	inicializarTabela(&tab);
+	if(inicializarTabela(&tab)){
+		printf("AQR CRIADO");
+	}
+	
 
 	while(1) {
 		scanf("%d", &opcao);
@@ -22,7 +25,7 @@ int main(int argc, char * argv[]) {
 						//printf("%d\n", maior_elemento(tab.indices));
 						break;
 				case 4:
-						printf("%d\n", menor_elemento(tab.indices));
+						//printf("%d\n", menor_elemento(tab.indices));
 						break;
 				case 5:
 						pre_order(tab.indices, &tab);
@@ -38,7 +41,7 @@ int main(int argc, char * argv[]) {
 						break;
 
 				case 10:
-						salvar_arquivo("dados.dat", tab.indices);
+						//salvar_arquivo("dados.dat", tab.indices);
 						break;
 
 				case 11:

@@ -11,8 +11,8 @@ void inicializar(arvore *raiz) {
 
 int inicializarTabela(tabela *tab) {
 	inicializar(&tab->indices);	
-	tab->arquivo_dados = fopen("dados.txt", "a+b");
-	tab->indices = carregar_arquivo("indices.txt", tab->indices);
+	tab->arquivo_dados = fopen("dados.dat", "a+b");
+	tab->indices = carregar_arquivo("indices.dat", tab->indices);
 	if(tab->arquivo_dados != NULL)
 		return 1;
 	else
@@ -46,11 +46,11 @@ arvore adicionar (tipo_dado *valor, arvore raiz, int *cresceu){
 		novo->esq = NULL;
 		novo->dir = NULL;
 		novo->fb = 0;
-	  * cresceu = 1; 
+	  	*cresceu = 1; 
 		return novo;
 	}
 
-	if(valor > raiz->dado) {
+	if(valor->chave > raiz->dado->chave) {
 		raiz->dir = adicionar(valor, raiz->dir, cresceu);
 
         if(*cresceu) {
@@ -237,7 +237,7 @@ int maior(int a, int b) {
 		return b;
 }
 
-int maior_elemento(arvore raiz) {
+//int maior_elemento(arvore raiz) {
 	/*if(raiz != NULL){
 		if(raiz->dir == NULL)
 			return raiz->dado;
@@ -250,10 +250,10 @@ int maior_elemento(arvore raiz) {
 	if(raiz->dir == NULL)
 		return raiz->dado;
 	else
-		return maior_elemento(raiz->dir);*/
-}
+		return maior_elemento(raiz->dir);
+}*/
 
-int menor_elemento(arvore raiz) {
+/*int menor_elemento(arvore raiz) {
 	if(raiz != NULL){
 		if(raiz->esq == NULL)
 			return raiz->dado;
@@ -266,8 +266,8 @@ int menor_elemento(arvore raiz) {
 	if(raiz->esq == NULL)
 			return raiz->dado;
 	else
-		return menor_elemento(raiz->esq);*/
-}
+		return menor_elemento(raiz->esq);
+}*/
 
 void pre_order(arvore raiz, tabela *tab) {
 	if(raiz != NULL) {
@@ -325,26 +325,49 @@ void imprimir_elemento(arvore raiz, tabela * tab) {
 }*/
 
 dado * ler_dados() {
-	dado *novo = (dado *) malloc(sizeof(dado));
-	//__fpurge(stdin);
-	getchar();
+	dado *novo = (dado *) malloc(sizeof(dado)); //MUDEI DE TIPO_DADO PARA DADO
+	char * buffer = (char *) malloc(256 * sizeof(char));
+
+	getchar() ;
 	printf("Titulo: ");
-	fgets(novo->titulo, 80,  stdin);
-	tirar_enter(novo->titulo);
+	fgets(buffer, 255,  stdin);
+	tirar_enter(buffer);
+/*	novo->titulo = (char *) malloc ((strlen(buffer) + 1) * sizeof(char));
+	strcpy(novo->titulo, buffer);*/
+	novo->titulo = strdup(buffer);
+
 	printf("Autor: ");
-	fgets(novo->autor, 50,  stdin);
-	tirar_enter(novo->autor);
+	fgets(buffer, 255,  stdin);
+	tirar_enter(buffer);
+	novo->autor = strdup(buffer);
+
 	printf("Isbn: ");
-	fgets(novo->isbn, 20,  stdin);
-	tirar_enter(novo->isbn);
+	fgets(buffer, 255,  stdin);
+	tirar_enter(buffer);
+	novo->isbn = strdup(buffer);
+
 	printf("Codigo: ");
 	scanf("%d", &novo->codigo);
+	free(buffer);
+
 	return novo;
 }
 
 void tirar_enter(char *string) {
 	string[strlen(string) -1] = '\0';
 }
+
+/*int salvar_arquivo(char *nome, arvore a){
+	char* caminho = argv[4];
+    FILE* arquivo_saida = freopen(caminho, "w", stdout);
+    if(arquivo_saida == NULL){
+		printf("\n \n   ERRO: Algum problema na abertura do arquivo de SAIDA!! \n");
+		//mostra_help();
+		return 1;
+	}
+	//imprimir(arvore->arvore);
+	fclose(arquivo_saida);
+}*/
 
 void salvar_arquivo(char *nome, arvore a) {
 	FILE *arq;

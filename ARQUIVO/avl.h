@@ -2,9 +2,9 @@
 #define AVL_H
 
 typedef struct livro {
-	char titulo[81];
-	char autor[51];
-	char isbn[21];
+	char * titulo;
+	char * autor;
+	char * isbn;
 	int codigo;
 } dado;
 
@@ -37,8 +37,8 @@ arvore adicionar (tipo_dado *valor, arvore raiz, int *cresceu);
 
 int altura(arvore raiz);
 int maior(int a, int b);
-int maior_elemento(arvore raiz);
-int menor_elemento(arvore raiz);
+//int *maior_elemento(arvore raiz);
+//int *menor_elemento(arvore raiz);
 void pre_order(arvore raiz, tabela *tab);
 void pos_order(arvore raiz, tabela *tab);
 void in_order(arvore raiz, tabela *tab);
