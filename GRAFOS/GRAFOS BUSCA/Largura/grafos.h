@@ -21,7 +21,8 @@ typedef struct grafo{
 
 void lerArquivo(grafo *g, char* nome);
 void gerarMatriz(int m, grafo *g);
-//void preencherMatriz(int **mat, int m);
+//void gerarArestas(grafo *g, char *lista1, char *lista2);
+void inserirMatriz(int aux1, int aux2, grafo *g);
 void imprimirMatriz(int v, grafo *g);
 
 

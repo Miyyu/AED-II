@@ -7,5 +7,6 @@ int main(int argc, char *argv[]){
 
     //printf("OIII");
     lerArquivo(&g, "arquivo");
+    //imprimirMatriz(&g);
 
 }
