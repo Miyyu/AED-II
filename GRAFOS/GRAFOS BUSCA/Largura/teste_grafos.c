@@ -4,9 +4,12 @@
 
 int main(int argc, char *argv[]){
     grafo g;
+    char letraV;
 
-    //printf("OIII");
     lerArquivo(&g, "arquivo");
-    //imprimirMatriz(&g);
+
+    printf("Digite a origem: ");
+    scanf("%c", &letraV);
+    buscaLargura(&g, letraV);
 
 }
