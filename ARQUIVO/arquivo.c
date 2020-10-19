@@ -20,25 +20,6 @@ int inicializarTabela(tabela *tab) {
 }
 
 
-arvore carregar_arquivo(char *nome, arvore a) {
-	FILE *arq;
-	arq = fopen(nome, "rb");
-	tipo_dado * temp;
-	int cresceu;
-	if(arq != NULL) {
-		temp = (tipo_dado *) malloc(sizeof(tipo_dado));
-		while(fread(temp, sizeof(tipo_dado), 1, arq)) {
-			
-			a = adicionar(temp, a,&cresceu);			
-			temp = (tipo_dado *) malloc(sizeof(tipo_dado));
-
-		}
-		fclose(arq);
-
-	}
-	return a;
-}
-
 void inserirLivro(tabela *tab, dado *livro){
 	if(tab->arquivo_dados != NULL) {
 		int cresceu;
@@ -276,6 +257,15 @@ tipo_dado * menor_elemento(arvore raiz) {
 	else
 		return maior_elemento(raiz->esq);
 }*/
+void buscarLivro(int valor,arvore raiz, tabela *tab) {
+	if(raiz != NULL) {
+		buscarLivro(valor,raiz->esq, tab);
+		if(valor == raiz->dado->chave){
+			imprimir_elemento(raiz, tab);
+		}
+		buscarLivro(valor,raiz->dir, tab);
+	}
+}
 
 void pre_order(arvore raiz, tabela *tab) {
 	if(raiz != NULL) {
@@ -298,15 +288,6 @@ void in_order(arvore raiz, tabela *tab) {
 		in_order(raiz->esq, tab);
 		imprimir_elemento(raiz, tab);
 		in_order(raiz->dir, tab);
-	}
-}
-void buscarLivro(int valor,arvore raiz, tabela *tab) {
-	if(raiz != NULL) {
-		buscarLivro(valor,raiz->esq, tab);
-		if(valor == raiz->dado->chave){
-			imprimir_elemento(raiz, tab);
-		}
-		buscarLivro(valor,raiz->dir, tab);
 	}
 }
 
@@ -345,6 +326,26 @@ void salvar_auxiliar(arvore raiz, FILE *arq){
 		salvar_auxiliar(raiz->esq, arq);
 		salvar_auxiliar(raiz->dir, arq);
 	}
+}
+
+
+arvore carregar_arquivo(char *nome, arvore a) {
+	FILE *arq;
+	arq = fopen(nome, "rb");
+	tipo_dado * temp;
+	int cresceu;
+	if(arq != NULL) {
+		temp = (tipo_dado *) malloc(sizeof(tipo_dado));
+		while(fread(temp, sizeof(tipo_dado), 1, arq)) {
+			
+			a = adicionar(temp, a,&cresceu);			
+			temp = (tipo_dado *) malloc(sizeof(tipo_dado));
+
+		}
+		fclose(arq);
+
+	}
+	return a;
 }
 
 void finalizar (tabela *tab) {

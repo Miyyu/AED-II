@@ -8,44 +8,49 @@ void lerArquivo(grafo *g, char* nome){
     FILE *arq;
     arq = fopen(nome, "r"); 
 
+    if(arq != NULL){
 
-    char buffer[16];
-    fgets(buffer, 15, arq);
+        char buffer[16];
+        fgets(buffer, 15, arq);
 
-    char *vert = strtok(buffer," "); //Separar a string em um espaço
-    char *are = strtok(NULL, "\n");
+        char *vert = strtok(buffer," "); //Separar a string em um espaço
+        char *are = strtok(NULL, "\n");
 
-    char lista[atoi(vert)];
-    for(int i = 0; i < sizeof(lista); i++){ // armazendo dentro da lista os vertices, para depois usar seus indices para a matriz
-        fscanf(arq,"%c",&lista[i]);
-        if(lista[i] == '\n'){ //caso encontre algum \n, decrementar o for para não inserir vazio na lista
-            i--;
-        } 
-    }
-
-    g->vertices = atoi(vert); //tranformando a string vert em um int
-    g->arestas = atoi(are);
-    strcpy(g->mapa , lista); //passando a lista de vertices para o grafo
-
-    gerarMatriz(atoi(vert), g);
-
-    char aux[15]; //auxiliar para pegar o restante da leitura do arquivo
-    while(fgets(aux, 16, arq) != NULL){ //lendo o restante do arquivo até ele ser NULL :: fgets recebe o nome do auxiliar que vai receber a str, o tamanho dessa str, e de que arquivo
-
-        int primeiro, segundo;    //criando variáveis para colocar os valores que representam o indice do que está na lista
-
-        for(int i = 0; i < sizeof(lista); i++){ //percorrendo a lista com os vertices
-            if(aux[0] == lista[i]){ //verificando se o aux[0], no caso o primeiro caractere da linha, é igual a algum da lista
-                primeiro = i; //e pego o seu indice
-            }
-            if(aux[1] == lista[i]){ //verificando se o aux[1], no caso o segundo caractere da linha, é igual a algum da lista
-                segundo = i;
-            }            
+        char lista[atoi(vert)];
+        for(int i = 0; i < sizeof(lista); i++){ // armazendo dentro da lista os vertices, para depois usar seus indices para a matriz
+            fscanf(arq,"%c",&lista[i]);
+            if(lista[i] == '\n'){ //caso encontre algum \n, decrementar o for para não inserir vazio na lista
+                i--;
+            } 
         }
-        inserirMatriz(primeiro, segundo, g);     
+
+        g->vertices = atoi(vert); //tranformando a string vert em um int
+        g->arestas = atoi(are);
+        strcpy(g->mapa , lista); //passando a lista de vertices para o grafo
+
+        gerarMatriz(atoi(vert), g);
+
+        char aux[15]; //auxiliar para pegar o restante da leitura do arquivo
+        while(fgets(aux, 16, arq) != NULL){ //lendo o restante do arquivo até ele ser NULL :: fgets recebe o nome do auxiliar que vai receber a str, o tamanho dessa str, e de que arquivo
+
+            int primeiro, segundo, verdade;    //criando variáveis para colocar os valores que representam o indice do que está na lista
+
+            for(int i = 0; i < sizeof(lista); i++){ //percorrendo a lista com os vertices
+                if(aux[0] == lista[i]){ //verificando se o aux[0], no caso o primeiro caractere da linha, é igual a algum da lista
+                    primeiro = i; //e pego o seu indice
+                }
+                if(aux[1] == lista[i]){ //verificando se o aux[1], no caso o segundo caractere da linha, é igual a algum da lista
+                    segundo = i;
+                }            
+            }
+            inserirMatriz(primeiro, segundo, g);     
+        }
+        fclose(arq);
+        imprimirMatriz(g->vertices, g);
     }
-    fclose(arq);
-    imprimirMatriz(g->vertices, g);
+    else{
+        printf("Arquivo não existe!\n");
+    }
 }
 
 void imprimirMatriz(int m, grafo *g){
@@ -62,6 +67,7 @@ void imprimirMatriz(int m, grafo *g){
         }
         printf("\n");
     }
+    printf("\n");
 }
 
 void gerarMatriz(int m, grafo *g){
@@ -102,7 +108,7 @@ void inserirMatriz(int aux1, int aux2, grafo *g){
     return;
 }
 
-fila* push(fila *fila,char v){
+fila* adicionarFila(fila *fila,char v){
     struct fila *aux = fila;
     if(aux == NULL){
         struct fila *novo = malloc(sizeof(fila));
@@ -117,7 +123,7 @@ fila* push(fila *fila,char v){
         return novo;
     }
 }
-fila* pop(fila *fila){
+fila* removerFila(fila *fila){
     if(fila != NULL){
         char v = fila->vertice;
         if(fila->prox != NULL){
@@ -129,6 +135,7 @@ fila* pop(fila *fila){
     return fila;
     }
 }
+
 void buscaLargura(grafo *g, char origem){
 
     int tam = g->vertices;
@@ -143,16 +150,16 @@ void buscaLargura(grafo *g, char origem){
     
     for(int i = 0; i < g->vertices; i++){ //busca início
         if(origem == g->mapa[i]){
-            f = push(f, g->mapa[i]);//enfileirando origem g->mapa[i]
-            visitado[i] = 1; //visitado[i] = 1; 
+            f = adicionarFila(f, g->mapa[i]);//enfileirando origem g->mapa[i]
+            visitado[i] = 1;
             break;            
         }
     }    
 
 
-    while(f != NULL){  //<-------
+    while(f != NULL){
         char nomeVertice = f->vertice;
-        f = pop(f); //pop
+        f = removerFila(f);
         for(int i = 0; i < g->vertices; i++){ //busca o caractere da lista
             if(nomeVertice == g->mapa[i]){ 
                 // busca adjacentes----------------------------------------
@@ -160,7 +167,7 @@ void buscaLargura(grafo *g, char origem){
                     if(g->matriz[i][j] == 1 && j != i ){                        
 
                         if(visitado[j] == 0){
-                            adjacentes = push(adjacentes, g->mapa[j]);
+                            adjacentes = adicionarFila(adjacentes, g->mapa[j]);
                         }                                                    
                     }
                 }
@@ -168,13 +175,13 @@ void buscaLargura(grafo *g, char origem){
         }         
         while(adjacentes != NULL){ //o vetor de não visitados não estiver vazio
             char adjVertice = adjacentes->vertice;
-            adjacentes = pop(adjacentes);
+            adjacentes = removerFila(adjacentes);
             for(int i = 0; i < g->vertices; i++){ //busca vertice
                 if(adjVertice == g->mapa[i]){
                     if(visitado[i] == 0){
-                        f = push(f,g->mapa[i]);//enfileirando adjvert
-                        printf("%c ", adjVertice);
-                        visitado[i] = 1; //visitado[i] = 1;
+                        f = adicionarFila(f,g->mapa[i]);
+                        printf(" ⇢ %c", adjVertice);
+                        visitado[i] = 1;
                     }                    
                 }
             }            

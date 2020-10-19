@@ -29,8 +29,14 @@ typedef struct tabela {
 int inicializarTabela(tabela *tab);
 void finalizar (tabela *tab);
 void inserirLivro(tabela *tab, dado *livro);
+dado * ler_dados();
 void inicializar(arvore *raiz);
 arvore adicionar (tipo_dado *valor, arvore raiz,int *cresceu);
+arvore rotacionar(arvore raiz);
+arvore rotacao_simples_direita(arvore raiz);
+arvore rotacao_simples_esquerda(arvore raiz);
+arvore rotacao_dupla_direita(arvore raiz);
+arvore rotacao_dupla_esquerda(arvore raiz);
 int altura(arvore raiz);
 int maior(int a, int b);
 tipo_dado * maior_elemento(arvore raiz);
@@ -40,15 +46,9 @@ void pos_order(arvore raiz, tabela *tab);
 void in_order(arvore raiz, tabela *tab);
 void buscarLivro(int valor,arvore raiz,tabela *tab);
 void imprimir_elemento(arvore raiz, tabela *tab);
-dado * ler_dados();
 void tirar_enter(char *string);
 void salvar_arquivo(char *nome, arvore a);
 void salvar_auxiliar(arvore raiz, FILE *arq);
 arvore carregar_arquivo(char *nome, arvore a);
-arvore rotacionar(arvore raiz);
-arvore rotacao_simples_direita(arvore raiz);
-arvore rotacao_simples_esquerda(arvore raiz);
-arvore rotacao_dupla_direita(arvore raiz);
-arvore rotacao_dupla_esquerda(arvore raiz);
 
 #endif
